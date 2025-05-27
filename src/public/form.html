@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP フォーム処理</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .radio-group {
+            margin: 10px 0;
+        }
+        .radio-group label {
+            display: inline;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+        .checkbox-group {
+            margin: 5px 0;
+        }
+        .checkbox-group label {
+            display: inline;
+            font-weight: normal;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>お問い合わせフォーム</h1>
+        
+        <form action="process.php" method="POST">
+            <div class="form-group">
+                <label for="name">名前：</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">メールアドレス：</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label>性別：</label>
+                <div class="radio-group">
+                    <input type="radio" id="gender-male" name="gender" value="男性" checked>
+                    <label for="gender-male">男性</label>
+                    
+                    <input type="radio" id="gender-female" name="gender" value="女性">
+                    <label for="gender-female">女性</label>
+                    
+                    <input type="radio" id="gender-other" name="gender" value="その他">
+                    <label for="gender-other">その他</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">年齢層：</label>
+                <select id="age" name="age">
+                    <option value="">選択してください</option>
+                    <option value="10代以下">10代以下</option>
+                    <option value="20代">20代</option>
+                    <option value="30代">30代</option>
+                    <option value="40代">40代</option>
+                    <option value="50代">50代</option>
+                    <option value="60代以上">60代以上</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>興味のある分野：</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="interest-web" name="interests[]" value="Web開発">
+                    <label for="interest-web">Web開発</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="interest-app" name="interests[]" value="アプリ開発">
+                    <label for="interest-app">アプリ開発</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="interest-game" name="interests[]" value="ゲーム開発">
+                    <label for="interest-game">ゲーム開発</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="interest-ai" name="interests[]" value="AI/機械学習">
+                    <label for="interest-ai">AI/機械学習</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">メッセージ：</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            
+            <button type="submit">送信する</button>
+        </form>
+    </div>
+</body>
+</html>

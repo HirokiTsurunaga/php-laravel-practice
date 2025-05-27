@@ -1,0 +1,56 @@
+services:
+  # PHPアプリケーションサービス
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "8000:8000"  # PHPの組み込みサーバーのポート
+    networks:
+      - app-network
+    command: php -S 0.0.0.0:8000 -t public  # Laravelの場合はpublicディレクトリを指定
+    depends_on:
+      - db
+
+  # PostgreSQLデータベース
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: form_app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  # pgAdmin - PostgreSQL管理ツール
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  pgadmin-data:
